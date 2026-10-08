@@ -1,0 +1,20 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # 每天凌晨3点自动运行
+  workflow_dispatch: # 允许你手动点击按钮触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # 👇 加上这两行，赋予创建 PR 和写入内容的权限
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: tgymnich/fork-sync@v2.0
+        with:
+          owner: 7lumen  # 原作者的用户名
+          base: main                  # 原作者的分支
+          head: main                  # 你自己 fork 仓库的分支
